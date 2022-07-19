@@ -25,8 +25,6 @@ app.use(express.json());
 app.use(cors());
 
 // TODO:RUTA PRINCIPAL
-
-app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
