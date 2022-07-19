@@ -6,8 +6,8 @@ import { jwtMiddleware } from "../middlewares/jwt.middleware.js";
 const router = Router();
 
 router.post("/register",
-jwtMiddleware.verificarToken, jwtMiddleware.ValidarUsuarioUnico,
-jwtMiddleware.verificarRolAdmin,
+// jwtMiddleware.verificarToken, jwtMiddleware.ValidarUsuarioUnico,
+// jwtMiddleware.verificarRolAdmin,
 authController.register);
 // router.get("/", authController.getUsers);
 router.post("/login", authController.login);

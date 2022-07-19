@@ -18,10 +18,16 @@ export const Estudiante = sequelize.define('tbl_estudiante', {
     codigo: {
         type: DataTypes.STRING,
     },
+    apellidos:{
+        type: DataTypes.STRING,
+    },
+    nombres:{
+        type: DataTypes.STRING,
+    },
     ciclo:{
         type:DataTypes.STRING,
     },
-    year:{
+    grupo:{
         type:DataTypes.STRING,
     },
     estado_practicas:{

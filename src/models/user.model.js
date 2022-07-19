@@ -3,6 +3,8 @@ import { DataTypes } from "sequelize";
 // import { Role } from "./role.model.js";
 import { Post } from "./post.model.js";
 import { Convenios } from "./convenios.model.js";
+import { Estudiante } from "./estudiante.model.js";
+import { Docente } from "./docente.model.js";
 
 export const User = sequelize.define('tbl_user', {
     id: {
@@ -39,6 +41,23 @@ User.hasMany(Convenios, {
 }
 );
 Convenios.belongsTo(User, {
+    foreingnKey: 'id_user',
+    sourceKey: 'id'
+}
+);
+
+User.hasMany(Estudiante, {
+    foreingnKey: 'id_user',
+    sourceKey: 'id'
+}
+);
+Estudiante.belongsTo(User, {
+    foreingnKey: 'id_user',
+    sourceKey: 'id'
+}
+);
+
+User.hasMany(Docente, {
     foreingnKey: 'id_user',
     sourceKey: 'id'
 }
