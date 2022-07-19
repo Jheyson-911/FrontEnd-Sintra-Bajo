@@ -177,6 +177,82 @@ const getPracticasByEstudiante = async (req, res) => {
     }
 }
 
+const getReportByEstadoProceso = async (req, res) => {
+    try{
+        const estudiantes = await Estudiante.findAll({
+            where: {
+                estado_practicas: "En proceso"
+            }
+        });
+        if(estudiantes===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiantes: estudiantes
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
+
+const getReportByEstadoFinalizado = async (req, res) => {
+    try{
+        const estudiantes = await Estudiante.findAll({
+            where: {
+                estado_practicas: "Finalizado"
+            }
+        });
+        if(estudiantes===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiantes: estudiantes
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
+const getReportByEstadoInicio = async (req, res) => {
+    try{
+        const estudiantes = await Estudiante.findAll({
+            where: {
+                estado_practicas: "No iniciado"
+            }
+        });
+        if(estudiantes===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiantes: estudiantes
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
 export const estudianteController = {
     getEstudiantes,
     getEstudianteById,
@@ -185,5 +261,8 @@ export const estudianteController = {
     updateEstudiante,
     getDocumentosByEstudiante,
     getSolicitudesByEstudiante,
-    getPracticasByEstudiante
+    getPracticasByEstudiante,
+    getReportByEstadoProceso,
+    getReportByEstadoFinalizado,
+    getReportByEstadoInicio
 }

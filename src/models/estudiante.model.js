@@ -30,6 +30,9 @@ export const Estudiante = sequelize.define('tbl_estudiante', {
     grupo:{
         type:DataTypes.STRING,
     },
+    dni:{
+        type:DataTypes.STRING,
+    },
     estado_practicas:{
         type:DataTypes.STRING,
     }
