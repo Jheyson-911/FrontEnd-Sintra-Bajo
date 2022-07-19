@@ -21,7 +21,7 @@ export const Practica = sequelize.define('tbl_practica', {
         type: DataTypes.DATE,
     },
     horas: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
     },
     estado: {
         type: DataTypes.STRING,
