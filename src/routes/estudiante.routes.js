@@ -9,6 +9,7 @@ router.get("/:id",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOr
 router.post("/",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.createEstudiante);
 router.delete("/:id",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.deleteEstudiante);
 router.put("/:id", jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria,estudianteController.updateEstudiante);
+router.put("/:search", jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria,estudianteController.searchNameOrCodigo);
 
 
 export default router;

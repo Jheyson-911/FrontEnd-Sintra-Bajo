@@ -291,5 +291,6 @@ export const estudianteController = {
     getPracticasByEstudiante,
     getReportByEstadoProceso,
     getReportByEstadoFinalizado,
-    getReportByEstadoInicio
+    getReportByEstadoInicio,
+    searchNameOrCodigo
 }
