@@ -16,6 +16,7 @@ router.get("/:id/solicitudes",jwtMiddleware.verificarToken,jwtMiddleware.verific
 router.get("/practicas/completo",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.traerPracticasCompleto);
 
 router.get("/:id/todo",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.traerPracticasCompletoById);
+router.get("/:id/unico",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.traerPracticasUnicaCompletoById);
 router.post("/buscar",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.buscarPorNombre);
 
 router.post("/buscarcodigo",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.buscarPorCodigo);

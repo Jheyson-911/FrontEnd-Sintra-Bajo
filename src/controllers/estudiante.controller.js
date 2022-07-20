@@ -5,7 +5,6 @@ import { Practica } from '../models/practica.model.js';
 import { Evaluacion } from '../models/evaluacion.model.js';
 import { Item } from '../models/item.model.js';
 import { ContenidoItem } from '../models/contenidoItem.model.js';
-import { where } from 'sequelize/types/sequelize.js';
 
 const getEstudiantes = async (req, res) => {
     try{
@@ -371,7 +370,7 @@ const buscarPorCodigo = async (req, res) => {
             res.json({
                 message: "Estudiantes no encontrados"
             });
-        }    
+        }
         res.json({
             message: "Lista de estudiantes",
             estudiante: estudiante
@@ -385,7 +384,46 @@ const buscarPorCodigo = async (req, res) => {
     }
 }
 
+const traerPracticasUnicaCompletoById = async (req, res) => {
+    try{
+        const estudiante = await Estudiante.findAll({
 
+            include: [{
+                model: Practica,
+                attributes: ['fecha_inicio', 'fecha_fin', 'horas','estado'],
+                include: [{
+                    model:Evaluacion,
+                    attributes: ['fase','fecha','observaciones','estado'],
+                    include: [{
+                        model: Item,
+                        attributes: ['titulo'],
+                        include: [{
+                            model: ContenidoItem,
+                        }]
+                    }]
+                }],
+                where: {
+                    id: req.params.id
+                },
+            }],
+        })
+        if(estudiante===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiante: estudiante
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
 
 
 
@@ -404,6 +442,8 @@ export const estudianteController = {
 
     traerPracticasCompleto,
     traerPracticasCompletoById,
+
+    traerPracticasUnicaCompletoById,
 
     buscarPorNombre,
     buscarPorCodigo
