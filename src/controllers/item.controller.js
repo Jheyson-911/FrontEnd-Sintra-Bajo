@@ -1,3 +1,4 @@
+import { ContenidoItem } from "../models/contenidoItem.model.js";
 import { Item } from "../models/item.model.js";
 
 const getItems = async (req, res) => {
@@ -102,10 +103,33 @@ const updateItem = async (req, res) => {
     }
 }
 
+const getContenidosByItem = async (req, res) => {
+    try{
+        const contenidos = await ContenidoItem.findAll({
+            where: {
+                tblItemId: req.params.id
+            }
+        });
+        res.json({
+            message: "Lista de contenidos que pertenecen al Item",
+            contenidos: contenidos
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los contenidos"
+        });
+    }
+}
+
+
+
 export const itemController = {
     getItems,
     getItemById,
     createItem,
     deleteItem,
-    updateItem
+    updateItem,
+    getContenidosByItem
 }

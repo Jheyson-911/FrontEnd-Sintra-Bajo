@@ -40,7 +40,7 @@ const getContenidoItemById = async (req, res) => {
 const createContenidoItem = async (req, res) => {
     try{
         const contenidoItem = await ContenidoItem.create(req.body);
-        if(!req.body.descripcion || !req.body.calificacion){
+        if(!req.body.descripcion){
             return res.status(400).json({
                 message: "Faltan datos"
             });
@@ -84,7 +84,7 @@ const updateContenidoItem = async (req, res) => {
                 id: req.params.id
             }
         });
-        if(!req.body.descripcion || !req.body.calificacion){
+        if(!req.body.descripcion){
             return res.status(400).json({
                 message: "Faltan datos"
             });

@@ -9,5 +9,6 @@ router.get("/:id",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOr
 router.post("/",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrSecretaria, practicaController.createPractica);
 router.delete("/:id",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdmin, practicaController.deletePractica);
 router.put("/:id",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrSecretaria, practicaController.updatePractica);
+router.get("/:id/evaluaciones",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, practicaController.getEvaluacionesByPractica);
 
 export default router;

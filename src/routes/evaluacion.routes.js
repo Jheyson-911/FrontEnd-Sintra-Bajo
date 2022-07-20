@@ -9,5 +9,6 @@ router.get("/:id",jwtMiddleware.verificarToken, jwtMiddleware.verificarSiEsUsuar
 router.post("/",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrDocente, evaluacionController.createEvaluacion);
 router.delete("/:id",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrDocente, evaluacionController.deleteEvaluacion);
 router.put("/:id",jwtMiddleware.verificarToken, jwtMiddleware.verificarRolAdminOrDocente, evaluacionController.updateEvaluacion);
+router.get("/:id/items",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, evaluacionController.getItemsByEvaluacion);
 
 export default router;

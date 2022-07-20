@@ -2,6 +2,10 @@ import { Estudiante } from '../models/estudiante.model.js';
 import { Documento } from '../models/documentos.model.js';
 import { Solicitud } from '../models/solicitud.model.js';
 import { Practica } from '../models/practica.model.js';
+import { Evaluacion } from '../models/evaluacion.model.js';
+import { Item } from '../models/item.model.js';
+import { ContenidoItem } from '../models/contenidoItem.model.js';
+import { where } from 'sequelize/types/sequelize.js';
 
 const getEstudiantes = async (req, res) => {
     try{
@@ -43,6 +47,11 @@ const getEstudianteById = async (req, res) => {
 const createEstudiante = async (req, res) => {
     try{
         const estudiante = await Estudiante.create(req.body);
+        if(!req.body.codigo || !req.body.ciclo || !req.body.nombres || !req.body.apellidos ||!req.body.ciclo || !req.body.grupo || !req.body.dni){
+            res.json({
+                message: "Faltan Datos"
+            });
+        }
         res.json({
             message: "Estudiante creado",
             estudiante: estudiante
@@ -79,7 +88,7 @@ const updateEstudiante = async (req, res) => {
                 id: req.params.id
             }
         });
-        if(!req.body.codigo || !req.body.ciclo || !req.body.year || !req.body.estado_practicas){
+        if(!req.body.codigo || !req.body.ciclo || !req.body.nombres || !req.body.apellidos ||!req.body.ciclo || !req.body.grupo || !req.body.dni){
             res.json({
                 message: "Faltan Datos"
             });
@@ -109,7 +118,8 @@ const getDocumentosByEstudiante = async (req, res) => {
             });
         }
         res.json({
-            message: "Lista de documentos"
+            message: "Lista de documentos",
+            documentos: documentos
         });
     }
     catch(error){
@@ -244,32 +254,34 @@ const getReportByEstadoInicio = async (req, res) => {
         });
     }
 }
-const searchNameOrCodigo = async (req, res) => {
+const traerPracticasCompleto = async (req, res) => {
     try{
-        const estudiantes = await Estudiante.findAll({
-            where: {
-                [Op.or]: [
-                    {
-                        nombre: {
-                            [Op.like]: `%${req.params.name}%`
-                        }
-                    },
-                    {
-                        codigo: {
-                            [Op.like]: `%${req.params.name}%`
-                        }
-                    }
-                ]
-            }
-        });
-        if(estudiantes===null){
+        const estudiante = await Estudiante.findAll({
+            include: [{
+                model: Practica,
+                attributes: ['fecha_inicio', 'fecha_fin', 'horas','estado'],
+                include: [{
+                    model:Evaluacion,
+                    attributes: ['fase','fecha','observaciones','estado'],
+                    include: [{
+                        model: Item,
+                        attributes: ['titulo'],
+                        include: [{
+                            model: ContenidoItem,
+                            attributes: ['descripcion','calificacion']
+                        }]
+                    }]
+                    }]
+                }]
+        })
+        if(estudiante===null){
             res.json({
                 message: "Estudiantes no encontrados"
             });
         }
         res.json({
             message: "Lista de estudiantes",
-            estudiantes: estudiantes
+            estudiante: estudiante
         });
     }
     catch(error){
@@ -279,6 +291,103 @@ const searchNameOrCodigo = async (req, res) => {
         });
     }
 }
+const traerPracticasCompletoById = async (req, res) => {
+    try{
+        const estudiante = await Estudiante.findAll({
+            include: [{
+                model: Practica,
+                attributes: ['fecha_inicio', 'fecha_fin', 'horas','estado'],
+                include: [{
+                    model:Evaluacion,
+                    attributes: ['fase','fecha','observaciones','estado'],
+                    include: [{
+                        model: Item,
+                        attributes: ['titulo'],
+                        include: [{
+                            model: ContenidoItem,
+                        }]
+                    }]
+                    }]
+                }],
+                where: {
+                    id: req.params.id
+                }
+        })
+        if(estudiante===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiante: estudiante
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
+const buscarPorNombre = async (req, res) => {
+    try{
+        const estudiante = await Estudiante.findAll({
+            where: {
+                nombres: req.body.nombre
+            }
+        })
+        if(estudiante===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiante: estudiante
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
+const buscarPorCodigo = async (req, res) => {
+    try{
+        const estudiante = await Estudiante.findAll({
+            where: {
+                codigo: req.body.codigo
+            }
+        })
+        if(estudiante===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }else if(estudiante.length===0){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }    
+        res.json({
+            message: "Lista de estudiantes",
+            estudiante: estudiante
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
+
+
+
+
 
 export const estudianteController = {
     getEstudiantes,
@@ -292,5 +401,10 @@ export const estudianteController = {
     getReportByEstadoProceso,
     getReportByEstadoFinalizado,
     getReportByEstadoInicio,
-    searchNameOrCodigo
+
+    traerPracticasCompleto,
+    traerPracticasCompletoById,
+
+    buscarPorNombre,
+    buscarPorCodigo
 }

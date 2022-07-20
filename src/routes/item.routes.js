@@ -9,5 +9,5 @@ router.get("/:id",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOr
 router.post("/", jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrDocente,itemController.createItem);
 router.delete("/:id", jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrDocente,itemController.deleteItem);
 router.put("/:id",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrDocente, itemController.updateItem);
-
+router.get("/:id/contenido",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrDocente, itemController.getContenidosByItem);
 export default router;

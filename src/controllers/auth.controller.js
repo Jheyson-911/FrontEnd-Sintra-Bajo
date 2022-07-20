@@ -98,8 +98,10 @@ const login = async (req, res) => {
 }
 
 
+
+
 export const authController = {
     register,
     getUsers,
-    login
+    login,
 }

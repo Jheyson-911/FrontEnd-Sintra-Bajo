@@ -1,4 +1,5 @@
 import { Evaluacion } from "../models/evaluacion.model.js";
+import { Item } from "../models/item.model.js";
 
 const getEvaluaciones = async (req, res) => {
     try{
@@ -101,6 +102,28 @@ const updateEvaluacion = async (req, res) => {
         });
     }
 }
+const getItemsByEvaluacion = async (req, res) => {
+    try{
+        const items = await Item.findAll({
+            where: {
+                tblEvaluacionId: req.params.id
+            }
+        });
+        res.json({
+            message: "Lista de items que pertenecen a la evaluacion",
+            items: items
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los items"
+        });
+    }
+}
+
+
+
 
 
 export const evaluacionController = {
@@ -108,5 +131,7 @@ export const evaluacionController = {
     getEvaluacionById,
     createEvaluacion,
     deleteEvaluacion,
-    updateEvaluacion
+    updateEvaluacion,
+    getItemsByEvaluacion,
+
 }

@@ -1,6 +1,5 @@
-import { Practica } from '../models/practica.model.js';
 import { Evaluacion } from '../models/evaluacion.model.js';
-import { Empresa } from '../models/empresa.model.js';
+import { Practica } from '../models/practica.model.js';
 
 const getPracticas = async (req, res) => {
     try{
@@ -42,7 +41,7 @@ const getPracticaById = async (req, res) => {
 const createPractica = async (req, res) => {
     try{
         const practica = await Practica.create(req.body);
-        if(!req.body.fecha_inicio || !req.body.fecha_fin || !req.body.horas || !req.body.estado){
+        if(!req.body.fecha_inicio || !req.body.fecha_fin || !req.body.horas){
             return res.status(400).json({
                 message: "Faltan datos"
             });
@@ -106,13 +105,8 @@ const getEvaluacionesByPractica = async (req, res) => {
                 tblPracticaId: req.params.id
             }
         });
-        if(!req.body.fecha_inicio || !req.body.fecha_fin || !req.body.horas || !req.body.estado){
-            return res.status(400).json({
-                message: "Faltan datos"
-            });
-        }
         res.json({
-            message: "Lista de evaluaciones",
+            message: "Lista de evaluaciones que pertenecen a la practica",
             evaluaciones: evaluaciones
         });
     }
@@ -123,6 +117,9 @@ const getEvaluacionesByPractica = async (req, res) => {
         });
     }
 }
+
+
+
 export const practicaController = {
     getPracticas,
     getPracticaById,
