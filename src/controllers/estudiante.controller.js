@@ -244,6 +244,41 @@ const getReportByEstadoInicio = async (req, res) => {
         });
     }
 }
+const searchNameOrCodigo = async (req, res) => {
+    try{
+        const estudiantes = await Estudiante.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        nombre: {
+                            [Op.like]: `%${req.params.name}%`
+                        }
+                    },
+                    {
+                        codigo: {
+                            [Op.like]: `%${req.params.name}%`
+                        }
+                    }
+                ]
+            }
+        });
+        if(estudiantes===null){
+            res.json({
+                message: "Estudiantes no encontrados"
+            });
+        }
+        res.json({
+            message: "Lista de estudiantes",
+            estudiantes: estudiantes
+        });
+    }
+    catch(error){
+        res.json({
+            error: error,
+            message: "Hubo un error al listar los estudiantes"
+        });
+    }
+}
 
 export const estudianteController = {
     getEstudiantes,
