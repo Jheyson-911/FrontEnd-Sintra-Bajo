@@ -43,21 +43,13 @@ const getEstudianteById = async (req, res) => {
 const createEstudiante = async (req, res) => {
     try{
         const estudiante = await Estudiante.create(req.body);
-        if(!req.body.codigo || !req.body.ciclo || !req.body.year || !req.body.estado_practicas){
-            res.json({
-                message: "Faltan Datos"
-            });
-        }
         res.json({
             message: "Estudiante creado",
             estudiante: estudiante
         });
     }
     catch(error){
-        res.json({
-            error: error,
-            message: "Hubo un error al crear el estudiante"
-        });
+        console.log(error);
     }
 }
 

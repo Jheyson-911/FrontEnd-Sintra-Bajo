@@ -22,24 +22,6 @@ const verificarToken = (req, res, next) => {
     }
 }
 
-// const verificarToken = (req, res, next) => {
-//     let token = req.headers.authorization;
-//     if (!token) {
-//         return res.status(401).json({
-//             message: 'No autorizado'
-//         });
-//     }
-//     try {
-//         token = token.split(' ')[1];
-//         const verificado = jwt.verify(token, key.secret);
-//         req.user = verificado;
-//         next();
-//     } catch (error) {
-//         return res.status(401).json({
-//             message: 'No autorizado'
-//         });
-//     }
-// }
 
 
 const ValidarUsuarioUnico = (req, res, next) => {

@@ -2,11 +2,11 @@ import Sequelize from "sequelize";
 import  "dotenv/config";
 
 export const sequelize = new Sequelize(
-    'dccn61cf22kdgp',
-    'ftkysustmtbhba',
-    '05c651033edbfaac687ecf308ade249fd641f848052b32e8166a3a3022190721',
+    'd9evgdmq3dde5a',
+    'whdfpmnzkqfkkc',
+    '41f73720d851ea0e740b9e38119c4e0261d3af5fc7eccee81545dcfb760cc47e',
     {
-        host:'ec2-3-219-52-220.compute-1.amazonaws.com',
+        host:'ec2-34-235-198-25.compute-1.amazonaws.com',
         dialect:'postgres',
         dialectOptions:{
             ssl: {

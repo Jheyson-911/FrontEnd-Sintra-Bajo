@@ -1,5 +1,10 @@
 import express from "express";
 import cors from "cors";
+// app.use(cors({
+//     origin: '*',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     preflightContinue: false
+// }));
 
 // ?IMPORTANDO LAS RUTAS DE LOS CONTROLADORES
 import ContenidoItemRoutes from "./routes/contenidoItem.routes.js";
@@ -24,13 +29,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "*");
+//   next();
+// }
+// );
 // TODO:RUTA PRINCIPAL
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 // ?RUTAS DE LAS APIS
-
+// app.options("*", cors());
 app.use("/api/contenidoItem", ContenidoItemRoutes);
 app.use("/api/docente", DocenteRoutes);
 app.use("/api/documento", DocumentoRoutes);
