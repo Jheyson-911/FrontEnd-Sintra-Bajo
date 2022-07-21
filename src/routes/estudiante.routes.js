@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { TimeoutError } from "sequelize/types/index.js";
 import { estudianteController } from "../controllers/estudiante.controller.js";
 import { jwtMiddleware } from "../middlewares/jwt.middleware.js";
 
@@ -21,4 +22,10 @@ router.post("/buscar",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdm
 
 router.post("/buscarcodigo",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.buscarPorCodigo);
 
+
+// TODO: creando rutas para los reportes de estudiantes
+
+router.get("/reportes/noiniciado",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoInicio);
+router.get("/reportes/procesp",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoProceso);
+router.get("/reportes/finalizado",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoFinalizado);
 export default router;
