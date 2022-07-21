@@ -25,6 +25,6 @@ router.post("/buscarcodigo",jwtMiddleware.verificarToken,jwtMiddleware.verificar
 // TODO: creando rutas para los reportes de estudiantes
 
 router.get("/reportes/noiniciado",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoInicio);
-router.get("/reportes/procesp",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoProceso);
+router.get("/reportes/proceso",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoProceso);
 router.get("/reportes/finalizado",jwtMiddleware.verificarToken,jwtMiddleware.verificarRolAdminOrSecretaria, estudianteController.getReportByEstadoFinalizado);
 export default router;
