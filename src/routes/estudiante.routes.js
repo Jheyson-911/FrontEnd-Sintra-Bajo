@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { TimeoutError } from "sequelize/types/index.js";
 import { estudianteController } from "../controllers/estudiante.controller.js";
 import { jwtMiddleware } from "../middlewares/jwt.middleware.js";
 
