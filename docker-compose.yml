@@ -10,14 +10,13 @@ services:
     environment:
       - DATABASE_HOST=127.0.0.1
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=bdpy
-  
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=sintrabajo
   pgadmin:
     image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "admin"
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "sintrabajo@upeu.pe"
+      PGADMIN_DEFAULT_PASSWORD: "sintrabajo"
     ports:
       - "80:80"
     depends_on:
