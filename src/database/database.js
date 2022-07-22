@@ -2,12 +2,11 @@ import Sequelize from "sequelize";
 import  "dotenv/config";
 
 export const sequelize = new Sequelize(
-    'postgres',
-    'postgres',
-    '123456',
+    'bdpy',
+    'admin',
+    '123',
     {
         host:'localhost',
-        port:'5432',
         dialect:'postgres',
     }
 );
